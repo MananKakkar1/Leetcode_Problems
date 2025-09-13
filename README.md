@@ -1,14 +1,13 @@
-# LeetCode DSA Course Notes
-
-> Converted from your notes and expanded into a single README-friendly file (with images reproduced as Markdown).
-
+# LeetCode Data Structures & Algorithms Notes
 
 ## Table of Contents
-- [Section 1: Arrays and Strings](#section-1-arrays-and-strings)
-  - [Time Complexity Reference](#time-complexity-reference)
-  - [Part 1: Two Pointers](#part-1-two-pointers)
-  - [Part 2: Sliding Window](#part-2-sliding-window)
-  - [Part 3: Prefix Sum](#part-3-prefix-sum)
+- [LeetCode Data Structures \& Algorithms Notes](#leetcode-data-structures--algorithms-notes)
+  - [Table of Contents](#table-of-contents)
+  - [Section 1: Arrays and Strings](#section-1-arrays-and-strings)
+    - [Time Complexity Reference](#time-complexity-reference)
+    - [Part 1: Two Pointers](#part-1-two-pointers)
+    - [Part 2: Sliding Window](#part-2-sliding-window)
+    - [Part 3: Prefix Sum](#part-3-prefix-sum)
 
 ## Section 1: Arrays and Strings
 
@@ -58,20 +57,8 @@ def two_pointers(arr):
             i += 1
         elif should_move_right(i, j, arr):
             j -= 1
-        else:
-            i += 1
-            j -= 1
-```
 
-**Template (C++)**
-```cpp
-int i = 0, j = (int)arr.size() - 1;
-while (i <= j) {
-    // process arr[i], arr[j]
-    if (should_move_left(i, j, arr))      ++i;
-    else if (should_move_right(i, j, arr)) --j;
-    else { ++i; --j; }
-}
+    # process remaining left or right movements for variable i or j respectively
 ```
 
 
@@ -97,34 +84,6 @@ right - left + 1
 **Why it’s efficient**
 Sliding window reduces a typical O(n^2) scan for subarrays to O(n) by moving each pointer at most n steps.
 
-**Template: variable-size window (Python)**
-```python
-def sliding_window(arr):
-    left = 0
-    best = 0
-    state = {}  # counts, sum, distinct, etc.
-    for right, x in enumerate(arr):
-        # include x
-        # update 'state' to reflect adding arr[right]
-        while not is_valid(state):
-            # remove arr[left]
-            left += 1
-        best = max(best, right - left + 1)  # or update answer differently
-    return best
-```
-
-**Template: fixed-size window (Python)**
-```python
-def fixed_k_max_sum(arr, k):
-    window_sum = sum(arr[:k])
-    best = window_sum
-    for right in range(k, len(arr)):
-        window_sum += arr[right] - arr[right - k]
-        best = max(best, window_sum)
-    return best  # window length is always k
-```
-
-
 ---
 
 ### Part 3: Prefix Sum
@@ -133,7 +92,7 @@ def fixed_k_max_sum(arr, k):
 
 
 
-**Example (from image, reproduced)**
+**Psuedocode:**
 
 ```cpp
 // Given an array nums,
@@ -141,22 +100,6 @@ prefix = [nums[0]]
 for (int i = 1; i < nums.length; i++) {
     prefix.append(nums[i] + prefix[prefix.length - 1])
 }
-```
-
-**0-indexed subarray sum**
-For subarray sum of `nums[l..r]` (inclusive), use:
-```
-sum = prefix[r] - (l > 0 ? prefix[l - 1] : 0)
-```
-
-**Template (Python)**
-```python
-def build_prefix(nums):
-    pref = [0] * len(nums)
-    pref[0] = nums[0]
-    for i in range(1, len(nums)):
-        pref[i] = pref[i-1] + nums[i]
-    return pref
 ```
 
 **Common pitfalls**
