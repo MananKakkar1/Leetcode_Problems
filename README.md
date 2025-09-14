@@ -14,13 +14,13 @@
     - [Counting (frequency)](#counting-frequency)
     - [Exact constraints with prefix sums + counts](#exact-constraints-with-prefix-sums--counts)
   - [Section 3: Linked Lists](#section-3-linked-lists)
-    - [Basics](#basics)
-    - [Advantages vs Arrays](#advantages-vs-arrays)
-    - [Singly Linked List: Insert/Delete](#singly-linked-list-insertdelete)
-    - [Doubly Linked List](#doubly-linked-list)
-    - [Complexity Reference](#complexity-reference)
-  - [Section 3: Part 1: Slow and Fast Pointers](#section-3-part-1-slow-and-fast-pointers)
-  - [Section 3: Part 2: Reversing a Linked List](#section-3-part-2-reversing-a-linked-list)
+      - [Basics](#basics)
+      - [Advantages vs Arrays](#advantages-vs-arrays)
+      - [Singly Linked List: Insert/Delete](#singly-linked-list-insertdelete)
+      - [Doubly Linked List](#doubly-linked-list)
+      - [Complexity Reference](#complexity-reference)
+    - [Part 1: Slow and Fast Pointers](#part-1-slow-and-fast-pointers)
+  - [Part 2: Reversing a Linked List](#part-2-reversing-a-linked-list)
 
 ## Section 1: Arrays and Strings
 
@@ -166,27 +166,27 @@ This mirrors Two-Sum: fix `curr`, look up `curr - k`.
 
 
 ## Section 3: Linked Lists
-### Basics
+#### Basics
 - A linked list stores elements as **nodes**. Each node keeps a value and a pointer/reference to the next node (`next`).
 - The **head** is the first node and is the only guaranteed way to reach the entire list. Keep a reference to it.
 - The list ends at a node whose `next` is `null` (or equivalent).
 
-### Advantages vs Arrays
+#### Advantages vs Arrays
 - **Insert/Delete at a known position** is **O(1)** *if you already have the predecessor node*. Otherwise, it’s **O(n)** to walk there.
 - **No random access**: accessing the element at index `i` is **O(n)** from the head.
 - **No resizing cost**: lists grow/shrink by linking/unlinking nodes, but each node has **extra pointer overhead** (and worse cache locality than arrays).
 
-### Singly Linked List: Insert/Delete
+#### Singly Linked List: Insert/Delete
 - **Insert after `prev`**: point the new node’s `next` to `prev.next`, then point `prev.next` to the new node. This is **O(1)** if `prev` is known.
 - **Delete after `prev`**: point `prev.next` to `prev.next.next`. This is **O(1)** if `prev` is known.
 - Without a direct pointer to `prev`, you must **walk from head** to find it → **O(n)**.
 
-### Doubly Linked List
+#### Doubly Linked List
 - Each node has both `prev` and `next` pointers, allowing **bidirectional** iteration.
 - Insert/delete requires **updating both directions** (adjust `prev` on the successor and `next` on the predecessor).
 - Often used when frequent front/back operations or backward traversal are needed.
 
-### Complexity Reference
+#### Complexity Reference
 | Task                                  | Time   | Space |
 |---------------------------------------|--------|-------|
 | Access by index `i`                   | O(n)   | O(1)  |
@@ -196,7 +196,7 @@ This mirrors Two-Sum: fix `curr`, look up `curr - k`.
 | Reverse list                          | O(n)   | O(1)  |
 | Merge two sorted lists                | O(n+m) | O(1)  |
 
-## Section 3: Part 1: Slow and Fast Pointers
+### Part 1: Slow and Fast Pointers
 
 **Idea**  
 An implementation of two pointers where the pointers don’t move in lockstep. Commonly, the **fast** pointer advances two nodes per step while the **slow** pointer advances one (but any speed/offset difference works). Sometimes the pointers **start at different positions** instead of moving at different speeds.
@@ -216,7 +216,7 @@ while fast and fast.next:
 # slow typically lands at middle of list
 ```
 
-## Section 3: Part 2: Reversing a Linked List
+## Part 2: Reversing a Linked List
 **Idea**  
 Reverse pointers in-place using three references: `prev`, `curr`, `next_node`. Flip `curr.next` to point at `prev`, then advance.
 
