@@ -11,6 +11,18 @@
   - [Section 2: Hash Maps \& Sets (Hashing)](#section-2-hash-maps--sets-hashing)
     - [Hashing](#hashing)
     - [Hash Map (dictionary)](#hash-map-dictionary)
+    - [Counting (frequency)](#counting-frequency)
+    - [Exact constraints with prefix sums + counts](#exact-constraints-with-prefix-sums--counts)
+  - [Section 3: Linked Lists](#section-3-linked-lists)
+    - [Basics](#basics)
+    - [Advantages vs Arrays](#advantages-vs-arrays)
+    - [Mechanics](#mechanics)
+    - [Traversal](#traversal)
+    - [Singly Linked List: Insert/Delete](#singly-linked-list-insertdelete)
+    - [Doubly Linked List](#doubly-linked-list)
+    - [Sentinel Nodes](#sentinel-nodes)
+    - [Dummy Pointer](#dummy-pointer)
+    - [Complexity Reference](#complexity-reference)
 
 ## Section 1: Arrays and Strings
 
@@ -132,7 +144,74 @@ Stores **key → value** pairs. Keys should be **immutable**; values can be anyt
 - Worst case with many collisions → **O(n)**, but good hashes/load factors keep average O(1).
 - Resizing a table is expensive (rehash), so there’s overhead compared to small plain arrays.
 
+### Counting (frequency)
+
+Use a hash map to track **frequencies** (`key -> count`). This pairs well with sliding window when the constraint involves **multiple distinct elements**.
+
+- Maintain `counts[...] += 1` when expanding the window.
+- When shrinking, decrement and **delete** keys when the count hits 0.
+- Amortized **O(1)** per step ⇒ overall **O(n)**.
+
+### Exact constraints with prefix sums + counts
+
+For “**number of subarrays with sum exactly = k**” (or “exactly k odds”):
+- Keep a running `curr` (prefix).
+- Keep `counts[prefix]` with **`counts[0] = 1`** to account for the empty prefix.
+- At each index: `ans += counts[curr - k]`, then do `counts[curr] += 1`.
+
+This mirrors Two-Sum: fix `curr`, look up `curr - k`.
+
 **Common Types of Patterns in Questions:**
 - Counting & frequency tables
 - Two-Sum style complements
 - Checking for existence
+
+
+## Section 3: Linked Lists
+### Basics
+- A linked list stores elements as **nodes**. Each node keeps a value and a pointer/reference to the next node (`next`).
+- The **head** is the first node and is the only guaranteed way to reach the entire list. Keep a reference to it.
+- The list ends at a node whose `next` is `null` (or equivalent).
+
+### Advantages vs Arrays
+- **Insert/Delete at a known position** is **O(1)** *if you already have the predecessor node*. Otherwise, it’s **O(n)** to walk there.
+- **No random access**: accessing the element at index `i` is **O(n)** from the head.
+- **No resizing cost**: lists grow/shrink by linking/unlinking nodes, but each node has **extra pointer overhead** (and worse cache locality than arrays).
+
+### Mechanics
+- **Reference assignment** points to the same node. Reassigning `head = head.next` does not change other references pointing at the old head.
+- **Chaining** like `head.next.next` means: go to the node after `head`, then take **its** `next`.
+- **Order of rewiring matters** when inserting/deleting to avoid “losing” part of the list.
+
+### Traversal
+- Move a cursor from `head` forward one node at a time until reaching the end.
+- Can be written iteratively or recursively (watch stack depth for very long lists).
+
+### Singly Linked List: Insert/Delete
+- **Insert after `prev`**: point the new node’s `next` to `prev.next`, then point `prev.next` to the new node. This is **O(1)** if `prev` is known.
+- **Delete after `prev`**: point `prev.next` to `prev.next.next`. This is **O(1)** if `prev` is known.
+- Without a direct pointer to `prev`, you must **walk from head** to find it → **O(n)**.
+
+### Doubly Linked List
+- Each node has both `prev` and `next` pointers, allowing **bidirectional** iteration.
+- Insert/delete requires **updating both directions** (adjust `prev` on the successor and `next` on the predecessor).
+- Often used when frequent front/back operations or backward traversal are needed.
+
+### Sentinel Nodes
+- Use **dummy head** (and **dummy tail** for doubly lists) to simplify edge cases:
+  - Uniform insert/delete at front/back with fewer `null` checks.
+  - Cleaner code for operations on empty or single-element lists.
+- The real list starts at `dummy_head.next` (and ends at `dummy_tail.prev` in doubly lists).
+
+### Dummy Pointer
+- Keep `head` untouched and walk with a **separate cursor** (dummy pointer) to avoid losing access to the list’s start.
+
+### Complexity Reference
+| Task                                  | Time   | Space |
+|---------------------------------------|--------|-------|
+| Access by index `i`                   | O(n)   | O(1)  |
+| Search by value                       | O(n)   | O(1)  |
+| Insert/delete (with predecessor)      | O(1)   | O(1)  |
+| Insert/delete by index (no pointer)   | O(n)   | O(1)  |
+| Reverse list                          | O(n)   | O(1)  |
+| Merge two sorted lists                | O(n+m) | O(1)  |
