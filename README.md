@@ -23,6 +23,7 @@
     - [Sentinel Nodes](#sentinel-nodes)
     - [Dummy Pointer](#dummy-pointer)
     - [Complexity Reference](#complexity-reference)
+  - [Section 3: Part 1: Slow and Fast Pointers](#section-3-part-1-slow-and-fast-pointers)
 
 ## Section 1: Arrays and Strings
 
@@ -215,3 +216,24 @@ This mirrors Two-Sum: fix `curr`, look up `curr - k`.
 | Insert/delete by index (no pointer)   | O(n)   | O(1)  |
 | Reverse list                          | O(n)   | O(1)  |
 | Merge two sorted lists                | O(n+m) | O(1)  |
+
+## Section 3: Part 1: Slow and Fast Pointers
+
+**Idea**  
+An implementation of two pointers where the pointers don’t move in lockstep. Commonly, the **fast** pointer advances two nodes per step while the **slow** pointer advances one (but any speed/offset difference works). Sometimes the pointers **start at different positions** instead of moving at different speeds.
+
+**When to use**
+- Find the **middle** of a list without knowing its length.
+- **Detect** if a cycle exists and **locate** the cycle’s start.
+- Maintain a **fixed gap** between two pointers (variant: unequal starts rather than unequal speeds).
+
+**Generic runner skeleton**
+```python
+slow, fast = head, head
+while fast and fast.next:
+    # do any per-iteration work here (e.g., check meeting)
+    slow = slow.next            # +1 step
+    fast = fast.next.next       # +2 steps
+# if loop ends by exhaustion: fast hit the end (no cycle)
+# slow typically lands around the middle
+```
