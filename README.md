@@ -16,12 +16,8 @@
   - [Section 3: Linked Lists](#section-3-linked-lists)
     - [Basics](#basics)
     - [Advantages vs Arrays](#advantages-vs-arrays)
-    - [Mechanics](#mechanics)
-    - [Traversal](#traversal)
     - [Singly Linked List: Insert/Delete](#singly-linked-list-insertdelete)
     - [Doubly Linked List](#doubly-linked-list)
-    - [Sentinel Nodes](#sentinel-nodes)
-    - [Dummy Pointer](#dummy-pointer)
     - [Complexity Reference](#complexity-reference)
   - [Section 3: Part 1: Slow and Fast Pointers](#section-3-part-1-slow-and-fast-pointers)
   - [Section 3: Part 2: Reversing a Linked List](#section-3-part-2-reversing-a-linked-list)
@@ -180,15 +176,6 @@ This mirrors Two-Sum: fix `curr`, look up `curr - k`.
 - **No random access**: accessing the element at index `i` is **O(n)** from the head.
 - **No resizing cost**: lists grow/shrink by linking/unlinking nodes, but each node has **extra pointer overhead** (and worse cache locality than arrays).
 
-### Mechanics
-- **Reference assignment** points to the same node. Reassigning `head = head.next` does not change other references pointing at the old head.
-- **Chaining** like `head.next.next` means: go to the node after `head`, then take **its** `next`.
-- **Order of rewiring matters** when inserting/deleting to avoid “losing” part of the list.
-
-### Traversal
-- Move a cursor from `head` forward one node at a time until reaching the end.
-- Can be written iteratively or recursively (watch stack depth for very long lists).
-
 ### Singly Linked List: Insert/Delete
 - **Insert after `prev`**: point the new node’s `next` to `prev.next`, then point `prev.next` to the new node. This is **O(1)** if `prev` is known.
 - **Delete after `prev`**: point `prev.next` to `prev.next.next`. This is **O(1)** if `prev` is known.
@@ -198,15 +185,6 @@ This mirrors Two-Sum: fix `curr`, look up `curr - k`.
 - Each node has both `prev` and `next` pointers, allowing **bidirectional** iteration.
 - Insert/delete requires **updating both directions** (adjust `prev` on the successor and `next` on the predecessor).
 - Often used when frequent front/back operations or backward traversal are needed.
-
-### Sentinel Nodes
-- Use **dummy head** (and **dummy tail** for doubly lists) to simplify edge cases:
-  - Uniform insert/delete at front/back with fewer `null` checks.
-  - Cleaner code for operations on empty or single-element lists.
-- The real list starts at `dummy_head.next` (and ends at `dummy_tail.prev` in doubly lists).
-
-### Dummy Pointer
-- Keep `head` untouched and walk with a **separate cursor** (dummy pointer) to avoid losing access to the list’s start.
 
 ### Complexity Reference
 | Task                                  | Time   | Space |
