@@ -20,7 +20,7 @@
       - [Doubly Linked List](#doubly-linked-list)
       - [Complexity Reference](#complexity-reference)
     - [Part 1: Slow and Fast Pointers](#part-1-slow-and-fast-pointers)
-  - [Part 2: Reversing a Linked List](#part-2-reversing-a-linked-list)
+    - [Part 2: Reversing a Linked List](#part-2-reversing-a-linked-list)
 
 ## Section 1: Arrays and Strings
 
@@ -216,7 +216,7 @@ while fast and fast.next:
 # slow typically lands at middle of list
 ```
 
-## Part 2: Reversing a Linked List
+### Part 2: Reversing a Linked List
 **Idea**  
 Reverse pointers in-place using three references: `prev`, `curr`, `next_node`. Flip `curr.next` to point at `prev`, then advance.
 
