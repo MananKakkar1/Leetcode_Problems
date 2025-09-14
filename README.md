@@ -21,6 +21,16 @@
       - [Complexity Reference](#complexity-reference)
     - [Part 1: Slow and Fast Pointers](#part-1-slow-and-fast-pointers)
     - [Part 2: Reversing a Linked List](#part-2-reversing-a-linked-list)
+  - [Section 4: Stacks](#section-4-stacks)
+    - [Overview](#overview)
+    - [Interface](#interface)
+    - [Time Complexity](#time-complexity)
+    - [When to Use](#when-to-use)
+  - [Section 5: Queues](#section-5-queues)
+    - [Overview](#overview-1)
+    - [Interface](#interface-1)
+    - [Time Complexity](#time-complexity-1)
+    - [When to use](#when-to-use-1)
 
 ## Section 1: Arrays and Strings
 
@@ -245,3 +255,65 @@ After ```curr.next = prev```, the original node would be unreachable without sto
 **Complexity**
 - Time: O(n)
 - Space: O(1)
+
+## Section 4: Stacks
+
+### Overview
+A **stack** is an ordered collection where elements are **added and removed from the same end**.  
+This is the **LIFO** (last in, first out) rule.
+
+### Interface
+- **push(x)**: add `x` to the top.
+- **pop()**: remove and return the top.
+- **peek() / top()**: read the top without removing.
+- **empty() / isEmpty()**: check if there are no elements.
+- **size()**: number of elements.
+
+### Time Complexity
+| Operation | Dynamic Array Backing | Linked List Backing |
+|-----------|------------------------|---------------------|
+| push      | **O(1)** amortized     | **O(1)**            |
+| pop       | **O(1)**               | **O(1)**            |
+| peek/top  | **O(1)**               | **O(1)**            |
+| search    | **O(n)**               | **O(n)**            |
+| random access | **O(1)** (array)  | N/A (no indexing)   |
+
+> Resizing for dynamic arrays happens occasionally and is amortized.  
+> Linked lists avoid resize cost but add pointer overhead and worse cache locality.
+
+### When to Use
+- You can recognize a **LIFO** pattern:
+  - Matching/validating pairs or nested structure.
+  - Tracking “next/previous greater/smaller” relationships (monotonic stack family).
+  - Expression evaluation / parsing.
+  - Undo/redo, browser back, path normalization, simulation of nested states.
+
+## Section 5: Queues
+
+### Overview
+A **queue** follows **FIFO** (first in, first out).  
+Elements are **added at one end** and **removed from the other**. The defining feature is this **opposite-end** behavior, regardless of how it’s implemented.
+
+### Interface
+- **enqueue(x)**: add `x` to the back / tail
+- **dequeue()**: remove and return the front / head
+- **front() / peek()**: read the front element without removing
+- **empty() / isEmpty()**
+- **size()**
+
+### Time Complexity
+| Operation   | Array (naïve) | Linked List / Deque |
+|-------------|----------------|---------------------|
+| enqueue     | O(1) amortized | **O(1)**            |
+| dequeue     | **O(n)**       | **O(1)**            |
+| front/peek  | O(1)           | **O(1)**            |
+| search      | O(n)           | O(n)                |
+
+### When to use
+- There is a **natural FIFO flow**: items must be processed in the **order they arrive** (e.g., print jobs, request handling).
+- **Level-by-level exploration** such as **BFS** on trees/graphs or multi-source BFS.
+- **Streaming/window problems** where you **evict outdated elements from the front** as new ones arrive (use a deque for O(1) front pops).
+- **Producer–consumer pipelines** to buffer work between stages.
+- **Fair scheduling / rate limiting** where ordering and fairness matter.
+- You need **amortized O(1) enqueue/dequeue** at opposite ends; if you also need operations at **both** ends, prefer a **deque**.
+
