@@ -8,6 +8,9 @@
     - [Part 1: Two Pointers](#part-1-two-pointers)
     - [Part 2: Sliding Window](#part-2-sliding-window)
     - [Part 3: Prefix Sum](#part-3-prefix-sum)
+  - [Section 2: Hash Maps \& Sets (Hashing)](#section-2-hash-maps--sets-hashing)
+    - [Hashing](#hashing)
+    - [Hash Map (dictionary)](#hash-map-dictionary)
 
 ## Section 1: Arrays and Strings
 
@@ -106,3 +109,30 @@ for (int i = 1; i < nums.length; i++) {
 - Off-by-one when using 0-indexed arrays.
 - Resetting prefix when multiple test cases are processed.
 - Mixing inclusive/exclusive boundaries when computing ranges.
+
+
+## Section 2: Hash Maps & Sets (Hashing)
+
+### Hashing
+A **hash function** turns a key into an integer in `[0, M-1]` (deterministic). That index picks a bucket in an internal array.
+
+Arrays give O(1) access for integer indices. Hashing lets me treat *any* key like an index → enabling hash maps/dictionaries.
+
+---
+
+### Hash Map (dictionary)
+Stores **key → value** pairs. Keys should be **immutable**; values can be anything.
+
+**Average-case operations:**
+- Insert / Update / Delete / Contains: **O(1)**
+- Get value by key: **O(1)**
+- Iterate over items: **O(n)** (order not guaranteed; language-dependent)
+
+**Nuances:**
+- Worst case with many collisions → **O(n)**, but good hashes/load factors keep average O(1).
+- Resizing a table is expensive (rehash), so there’s overhead compared to small plain arrays.
+
+**Common Types of Patterns in Questions:**
+- Counting & frequency tables
+- Two-Sum style complements
+- Checking for existence
