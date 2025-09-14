@@ -24,6 +24,7 @@
     - [Dummy Pointer](#dummy-pointer)
     - [Complexity Reference](#complexity-reference)
   - [Section 3: Part 1: Slow and Fast Pointers](#section-3-part-1-slow-and-fast-pointers)
+  - [Section 3: Part 2: Reversing a Linked List](#section-3-part-2-reversing-a-linked-list)
 
 ## Section 1: Arrays and Strings
 
@@ -227,7 +228,6 @@ An implementation of two pointers where the pointers don’t move in lockstep. C
 - **Detect** if a cycle exists and **locate** the cycle’s start.
 - Maintain a **fixed gap** between two pointers (variant: unequal starts rather than unequal speeds).
 
-**Generic runner skeleton**
 ```python
 slow, fast = head, head
 while fast and fast.next:
@@ -235,5 +235,35 @@ while fast and fast.next:
     slow = slow.next            # +1 step
     fast = fast.next.next       # +2 steps
 # if loop ends by exhaustion: fast hit the end (no cycle)
-# slow typically lands around the middle
+# slow typically lands at middle of list
 ```
+
+## Section 3: Part 2: Reversing a Linked List
+**Idea**  
+Reverse pointers in-place using three references: `prev`, `curr`, `next_node`. Flip `curr.next` to point at `prev`, then advance.
+
+**Steps**
+1. `next_node = curr.next` — don’t lose the remainder of the list.
+2. `curr.next = prev` — flip the arrow.
+3. `prev = curr` — move `prev` forward.
+4. `curr = next_node` — move `curr` forward.
+5. Loop until `curr` is `None`; **return `prev`** (new head).
+
+```python
+def reverse_list(head):
+    prev, curr = None, head
+    while curr:
+        next_node = curr.next   # save next
+        curr.next = prev        # reverse pointer
+        prev = curr             # advance prev
+        curr = next_node        # advance curr
+    return prev                 # new head
+```
+
+**Why save ```next_node```?**
+
+After ```curr.next = prev```, the original node would be unreachable without storing it first.
+
+**Complexity**
+- Time: O(n)
+- Space: O(1)
