@@ -1,4 +1,4 @@
-# LeetCode Data Structures & Algorithms Notes
+# Data Structures & Algorithms Notes
 
 ## Table of Contents
 - [LeetCode Data Structures \& Algorithms Notes](#leetcode-data-structures--algorithms-notes)
