@@ -3,6 +3,7 @@
 ## Table of Contents
 - [LeetCode Data Structures \& Algorithms Notes](#leetcode-data-structures--algorithms-notes)
   - [Table of Contents](#table-of-contents)
+  - [Repository Overview](#repository-overview)
   - [Section 1: Arrays and Strings](#section-1-arrays-and-strings)
     - [Time Complexity Reference](#time-complexity-reference)
     - [Part 1: Two Pointers](#part-1-two-pointers)
@@ -31,6 +32,10 @@
     - [Interface](#interface-1)
     - [Time Complexity](#time-complexity-1)
     - [When to use](#when-to-use-1)
+
+## Repository Overview
+
+This repo is a living notebook for my LeetCode prep. Each topic folder (Arrays and Strings, Hashing, Heaps, Linked Lists, Stacks and Queues, Trees and Graphs) bundles pattern summaries, reusable templates, and Python solutions to representative problems so I can revisit concepts quickly and grow the collection as I solve new questions.
 
 ## Section 1: Arrays and Strings
 
@@ -316,4 +321,3 @@ Elements are **added at one end** and **removed from the other**. The defining f
 - **Producer–consumer pipelines** to buffer work between stages.
 - **Fair scheduling / rate limiting** where ordering and fairness matter.
 - You need **amortized O(1) enqueue/dequeue** at opposite ends; if you also need operations at **both** ends, prefer a **deque**.
-
